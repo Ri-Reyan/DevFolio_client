@@ -6,6 +6,7 @@ import ProblemSolution from "../../landing_page_components/ProblemSolution";
 import Footer from "../../landing_page_components/Footer";
 import Pricing from "../../landing_page_components/Pricing";
 import HowItWorks from "../../landing_page_components/HowItWorks";
+import FAQChess from "../../landing_page_components/FAQChess";
 
 export default function LandingPage() {
   return (
@@ -28,6 +29,7 @@ export default function LandingPage() {
       <ProblemSolution />
       <Pricing />
       <HowItWorks />
+      <FAQChess />
       <Footer />
     </div>
   );
