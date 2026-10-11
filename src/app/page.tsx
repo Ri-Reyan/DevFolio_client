@@ -3,6 +3,8 @@ import Navbar from "../../landing_page_components/Navbar";
 import Hero from "../../landing_page_components/Hero";
 import SocialProof from "../../landing_page_components/SocialProof";
 import ProblemSolution from "../../landing_page_components/ProblemSolution";
+import Footer from "../../landing_page_components/Footer";
+import Pricing from "../../landing_page_components/Pricing";
 
 export default function LandingPage() {
   return (
@@ -23,6 +25,8 @@ export default function LandingPage() {
       <Hero />
       <SocialProof />
       <ProblemSolution />
+      <Pricing />
+      <Footer />
     </div>
   );
 }
