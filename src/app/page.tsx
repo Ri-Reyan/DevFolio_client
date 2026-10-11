@@ -5,6 +5,7 @@ import SocialProof from "../../landing_page_components/SocialProof";
 import ProblemSolution from "../../landing_page_components/ProblemSolution";
 import Footer from "../../landing_page_components/Footer";
 import Pricing from "../../landing_page_components/Pricing";
+import HowItWorks from "../../landing_page_components/HowItWorks";
 
 export default function LandingPage() {
   return (
@@ -26,6 +27,7 @@ export default function LandingPage() {
       <SocialProof />
       <ProblemSolution />
       <Pricing />
+      <HowItWorks />
       <Footer />
     </div>
   );
