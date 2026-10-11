@@ -5,16 +5,33 @@ import gsap from "gsap";
 
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
+  const pathRef = useRef<SVGPathElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // Entry Animation for Content
       gsap.from(".hero-animate", {
-        y: 50,
+        y: 40,
         opacity: 0,
         duration: 1,
-        stagger: 0.2,
+        stagger: 0.15,
         ease: "power3.out",
       });
+
+      // Career Graph Line Drawing Animation with a 1-second pause & smooth curve
+      if (pathRef.current) {
+        const length = pathRef.current.getTotalLength();
+        gsap.set(pathRef.current, {
+          strokeDasharray: length,
+          strokeDashoffset: length,
+        });
+        gsap.to(pathRef.current, {
+          strokeDashoffset: 0,
+          duration: 2.5,
+          ease: "power2.inOut",
+          delay: 1, // Pauses for 1 second before drawing starts
+        });
+      }
     }, heroRef);
 
     return () => ctx.revert();
@@ -25,27 +42,58 @@ export default function Hero() {
       ref={heroRef}
       className="relative hero-geometric-bg overflow-hidden py-20 lg:py-36 border-b border-[#00000014]"
     >
-      {/* Decorative Geometric Lines */}
-      <div className="absolute right-6 lg:right-12 top-16 hidden sm:block opacity-25 pointer-events-none">
+      {/* Upward Career Growth Graph Visual Background with Enhanced Curve */}
+      <div className="absolute right-0 bottom-0 w-full lg:w-[65%] h-full opacity-25 pointer-events-none flex items-end justify-end">
         <svg
-          width="250"
-          height="250"
-          lg:width="350"
-          lg:height="350"
-          viewBox="0 0 400 400"
+          viewBox="0 0 900 450"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          className="w-full h-full"
         >
-          <line x1="0" y1="0" x2="400" y2="400" stroke="#000" strokeWidth="1" />
-          <line x1="400" y1="0" x2="0" y2="400" stroke="#000" strokeWidth="1" />
-          <circle
-            cx="200"
-            cy="200"
-            r="80"
+          {/* Subtle Grid lines */}
+          <line
+            x1="0"
+            y1="112"
+            x2="900"
+            y2="112"
             stroke="#000"
-            strokeWidth="1"
+            strokeWidth="0.5"
             strokeDasharray="4 4"
           />
+          <line
+            x1="0"
+            y1="225"
+            x2="900"
+            y2="225"
+            stroke="#000"
+            strokeWidth="0.5"
+            strokeDasharray="4 4"
+          />
+          <line
+            x1="0"
+            y1="337"
+            x2="900"
+            y2="337"
+            stroke="#000"
+            strokeWidth="0.5"
+            strokeDasharray="4 4"
+          />
+
+          {/* Enhanced Smooth Upward Career Curve */}
+          <path
+            ref={pathRef}
+            d="M 0 380 C 200 370, 300 280, 450 200 C 600 120, 750 80, 900 30"
+            stroke="#ea6f53"
+            strokeWidth="3.5"
+            strokeLinecap="round"
+            fill="none"
+          />
+
+          {/* Growth Milestone Nodes */}
+          <circle cx="250" cy="300" r="4.5" fill="#231f20" />
+          <circle cx="450" cy="200" r="5.5" fill="#231f20" />
+          <circle cx="700" cy="100" r="6" fill="#231f20" />
+          <circle cx="900" cy="30" r="7" fill="#ea6f53" />
         </svg>
       </div>
 
