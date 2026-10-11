@@ -32,15 +32,15 @@ export default function Pricing() {
     <section
       ref={sectionRef}
       id="pricing"
-      className="py-28 lg:py-36 max-w-7xl mx-auto px-6 border-b border-[#00000014]"
+      className="py-16 sm:py-28 lg:py-36 max-w-7xl mx-auto px-6 border-b border-[#00000014]"
     >
       {/* Section Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+      <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-12 sm:mb-16 gap-6">
         <div>
           <span className="text-xs font-mono tracking-widest text-neutral-500 uppercase">
             // INVEST IN PROOF
           </span>
-          <h2 className="text-4xl lg:text-6xl font-semibold tracking-tighter mt-3 text-black">
+          <h2 className="text-3xl sm:text-4xl lg:text-6xl font-semibold tracking-tighter mt-2 sm:mt-3 text-black">
             Simple, transparent <br />
             <span className="text-transparent bg-clip-text bg-linear-to-r from-black via-neutral-700 to-orange-700">
               value for developers
@@ -49,10 +49,10 @@ export default function Pricing() {
         </div>
 
         {/* Monthly / Annual Toggle Switch */}
-        <div className="flex items-center gap-3 bg-neutral-100 p-1 border border-neutral-200 w-fit">
+        <div className="flex items-center gap-2 sm:gap-3 bg-neutral-100 p-1 border border-neutral-200 w-fit">
           <button
             onClick={() => setIsAnnual(false)}
-            className={`px-4 py-2 text-xs font-mono uppercase transition-colors ${
+            className={`px-3 sm:px-4 py-2 text-[11px] sm:text-xs font-mono uppercase transition-colors ${
               !isAnnual
                 ? "bg-black text-white"
                 : "text-neutral-600 hover:text-black"
@@ -62,21 +62,24 @@ export default function Pricing() {
           </button>
           <button
             onClick={() => setIsAnnual(true)}
-            className={`px-4 py-2 text-xs font-mono uppercase transition-colors ${
+            className={`px-3 sm:px-4 py-2 text-[11px] sm:text-xs font-mono uppercase transition-colors ${
               isAnnual
                 ? "bg-black text-white"
                 : "text-neutral-600 hover:text-black"
             }`}
           >
-            Annual <span className="text-[10px] text-orange-400">(-20%)</span>
+            Annual{" "}
+            <span className="text-[9px] sm:text-[10px] text-orange-400">
+              (-20%)
+            </span>
           </button>
         </div>
       </div>
 
       {/* Pricing Cards Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch pt-2 lg:pt-4">
         {/* Tier 1: Starter / Free */}
-        <div className="pricing-card p-8 border border-black bg-white flex flex-col justify-between transition-all duration-100 hover:bg-neutral-50">
+        <div className="pricing-card p-6 sm:p-8 border border-black bg-white flex flex-col justify-between transition-all duration-100 hover:bg-neutral-50 shadow-xs">
           <div>
             <div className="flex justify-between items-center mb-4">
               <span className="text-xs font-mono uppercase tracking-wider text-neutral-500">
@@ -87,14 +90,16 @@ export default function Pricing() {
               </span>
             </div>
             <div className="mb-6">
-              <span className="text-5xl font-semibold tracking-tight">$0</span>
+              <span className="text-4xl sm:text-5xl font-semibold tracking-tight">
+                $0
+              </span>
               <span className="text-neutral-500 text-sm ml-1">/ forever</span>
             </div>
-            <p className="text-neutral-600 text-sm mb-8 font-light">
+            <p className="text-neutral-600 text-xs sm:text-sm mb-8 font-light leading-relaxed">
               Perfect for students and junior developers starting their
               proof-of-work journey.
             </p>
-            <ul className="space-y-3 text-sm text-neutral-700 font-light mb-8">
+            <ul className="space-y-3 text-xs sm:text-sm text-neutral-700 font-light mb-8">
               <li className="flex items-center gap-2">✓ 3 Resumes per day</li>
               <li className="flex items-center gap-2">
                 ✓ 5 AI Mock Interviews
@@ -109,14 +114,14 @@ export default function Pricing() {
           </div>
           <Link
             href="/register"
-            className="w-full py-4 border border-black text-black text-xs font-mono uppercase tracking-widest text-center hover:bg-black hover:text-white transition-colors"
+            className="w-full py-3.5 sm:py-4 border border-black text-black text-xs font-mono uppercase tracking-widest text-center hover:bg-black hover:text-white transition-colors"
           >
             Get Started Free
           </Link>
         </div>
 
         {/* Tier 2: Pro (Elevated / Highlighted Tracebit Style) */}
-        <div className="pricing-card p-8 border-2 border-black bg-black text-white flex flex-col justify-between relative shadow-2xl lg:-translate-y-4">
+        <div className="pricing-card p-6 sm:p-8 border-2 border-black bg-black text-white flex flex-col justify-between relative shadow-2xl lg:-translate-y-4">
           <div className="absolute -top-3 right-6 bg-[#ea6f53] text-white text-[10px] font-mono uppercase px-3 py-1 tracking-widest">
             Most Popular
           </div>
@@ -130,16 +135,16 @@ export default function Pricing() {
               </span>
             </div>
             <div className="mb-6">
-              <span className="text-5xl font-semibold tracking-tight">
+              <span className="text-4xl sm:text-5xl font-semibold tracking-tight">
                 {isAnnual ? "$12" : "$15"}
               </span>
               <span className="text-neutral-400 text-sm ml-1">/ month</span>
             </div>
-            <p className="text-neutral-300 text-sm mb-8 font-light">
+            <p className="text-neutral-300 text-xs sm:text-sm mb-8 font-light leading-relaxed">
               Designed for serious developers aiming at top-tier tech roles and
               freelance scaling.
             </p>
-            <ul className="space-y-3 text-sm text-neutral-200 font-light mb-8">
+            <ul className="space-y-3 text-xs sm:text-sm text-neutral-200 font-light mb-8">
               <li className="flex items-center gap-2">
                 ✓ Unlimited Tailored Resumes
               </li>
@@ -156,14 +161,14 @@ export default function Pricing() {
           </div>
           <Link
             href="/register"
-            className="w-full py-4 bg-white text-black text-xs font-mono uppercase tracking-widest text-center hover:bg-neutral-200 transition-colors"
+            className="w-full py-3.5 sm:py-4 bg-white text-black text-xs font-mono uppercase tracking-widest text-center hover:bg-neutral-200 transition-colors"
           >
             Claim Pro Access
           </Link>
         </div>
 
         {/* Tier 3: Enterprise / Team */}
-        <div className="pricing-card p-8 border border-black bg-white flex flex-col justify-between transition-all duration-100 hover:bg-neutral-50">
+        <div className="pricing-card p-6 sm:p-8 border border-black bg-white flex flex-col justify-between transition-all duration-100 hover:bg-neutral-50 shadow-xs">
           <div>
             <div className="flex justify-between items-center mb-4">
               <span className="text-xs font-mono uppercase tracking-wider text-neutral-500">
@@ -174,18 +179,18 @@ export default function Pricing() {
               </span>
             </div>
             <div className="mb-6">
-              <span className="text-5xl font-semibold tracking-tight">
+              <span className="text-4xl sm:text-5xl font-semibold tracking-tight">
                 Custom
               </span>
               <span className="text-neutral-500 text-sm ml-1">
                 / organization
               </span>
             </div>
-            <p className="text-neutral-600 text-sm mb-8 font-light">
+            <p className="text-neutral-600 text-xs sm:text-sm mb-8 font-light leading-relaxed">
               For bootcamps, hiring teams, and engineering agencies verifying
               candidate skills at scale.
             </p>
-            <ul className="space-y-3 text-sm text-neutral-700 font-light mb-8">
+            <ul className="space-y-3 text-xs sm:text-sm text-neutral-700 font-light mb-8">
               <li className="flex items-center gap-2">
                 ✓ Team Workspace Analytics
               </li>
@@ -202,7 +207,7 @@ export default function Pricing() {
           </div>
           <Link
             href="/contact"
-            className="w-full py-4 border border-black text-black text-xs font-mono uppercase tracking-widest text-center hover:bg-black hover:text-white transition-colors"
+            className="w-full py-3.5 sm:py-4 border border-black text-black text-xs font-mono uppercase tracking-widest text-center hover:bg-black hover:text-white transition-colors"
           >
             Contact Sales
           </Link>

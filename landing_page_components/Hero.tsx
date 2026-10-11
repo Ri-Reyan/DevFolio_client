@@ -40,15 +40,16 @@ export default function Hero() {
   return (
     <section
       ref={heroRef}
-      className="relative hero-geometric-bg overflow-hidden py-20 lg:py-36 border-b border-[#00000014]"
+      className="relative hero-geometric-bg overflow-hidden py-16 sm:py-24 lg:py-36 border-b border-[#00000014]"
     >
-      {/* Upward Career Growth Graph Visual Background with Enhanced Curve */}
-      <div className="absolute right-0 bottom-0 w-full lg:w-[65%] h-full opacity-25 pointer-events-none flex items-end justify-end">
+      {/* Upward Career Growth Graph Visual Background - Fully Responsive */}
+      <div className="absolute inset-0 lg:left-auto lg:right-0 bottom-0 w-full lg:w-[65%] h-full opacity-20 sm:opacity-25 pointer-events-none flex items-end justify-end overflow-hidden">
         <svg
           viewBox="0 0 900 450"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-full"
+          className="w-full h-full object-cover"
+          preserveAspectRatio="none"
         >
           {/* Subtle Grid lines */}
           <line
@@ -103,14 +104,14 @@ export default function Hero() {
             PROOF-BASED DEVELOPER ECOSYSTEM
           </div>
 
-          <h1 className="hero-animate text-4xl sm:text-6xl lg:text-8xl font-semibold tracking-tighter leading-[0.95] text-black mb-8">
+          <h1 className="hero-animate text-3xl sm:text-6xl lg:text-8xl font-semibold tracking-tighter leading-[1.05] sm:leading-[0.95] text-black mb-6 sm:mb-8">
             Transform the way <br />
             <span className="text-transparent bg-clip-text bg-linear-to-r from-black via-neutral-800 to-orange-700">
               your career speaks
             </span>
           </h1>
 
-          <p className="hero-animate text-base md:text-xl text-neutral-600 max-w-2xl font-light leading-relaxed mb-10">
+          <p className="hero-animate text-sm sm:text-base md:text-xl text-neutral-600 max-w-2xl font-light leading-relaxed mb-8 sm:mb-10">
             Most developer skills aren’t verified for months. DevFolio proves
             your code through automated performance tests, AST analysis, and
             AI-driven technical scoring.
@@ -119,13 +120,13 @@ export default function Hero() {
           <div className="hero-animate flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
             <Link
               href="/register"
-              className="px-8 py-4 bg-black text-white text-sm font-medium tracking-wide text-center hover:bg-neutral-800 transition shadow-lg"
+              className="px-8 py-4 bg-black text-white text-xs sm:text-sm font-medium tracking-wide text-center hover:bg-neutral-800 transition shadow-lg"
             >
               Get Started Free →
             </Link>
             <Link
               href="#features"
-              className="px-8 py-4 bg-white text-black border border-black text-sm font-medium tracking-wide text-center hover:bg-neutral-100 transition"
+              className="px-8 py-4 bg-white text-black border border-black text-xs sm:text-sm font-medium tracking-wide text-center hover:bg-neutral-100 transition"
             >
               Explore Features
             </Link>
