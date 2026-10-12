@@ -41,7 +41,7 @@ export default function Navbar() {
         {/* Desktop Action Buttons */}
         <div className="hidden md:flex items-center gap-4">
           <Link
-            href="/login"
+            href="/auth/login"
             className="text-sm font-medium px-4 py-2 hover:opacity-75 transition"
           >
             Sign in

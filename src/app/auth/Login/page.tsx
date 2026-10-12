@@ -1,136 +1,169 @@
-// app/login/page.tsx
+"use client";
+
+import { useState, FormEvent } from "react";
 import Link from "next/link";
+import { FaGithub, FaCode } from "react-icons/fa6";
+import { HiOutlineEnvelope, HiOutlineLockClosed } from "react-icons/hi2";
+import { FiEye, FiEyeOff } from "react-icons/fi";
+import { TbArrowRight } from "react-icons/tb";
 
 export default function LoginPage() {
+  const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    // TODO: replace with real auth (NextAuth, Supabase, etc.)
+    setTimeout(() => {
+      setIsSubmitting(false);
+      alert("✨ Demo: Signed in successfully");
+    }, 800);
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        {/* Header */}
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Welcome back
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            Sign in to your account
-          </p>
+    <main className="min-h-screen flex items-center justify-center p-6 bg-page">
+      <div className="w-full max-w-[440px] bg-surface rounded-card border border-edge/60 shadow-soft px-8 pt-10 pb-8 sm:px-8 sm:pb-7">
+        {/* ---------- Brand ---------- */}
+        <div className="flex items-center justify-center mb-8">
+          <div className="w-11 h-11 rounded-[10px] bg-gradient-to-br from-brand to-blue-800 flex items-center justify-center text-white shadow-brand mr-3">
+            <FaCode className="w-5 h-5" />
+          </div>
+          <span className="text-[1.7rem] font-bold tracking-tight text-ink">
+            Dev<span className="text-brand">Folio</span>
+          </span>
         </div>
 
-        {/* Login Form */}
-        <form className="mt-8 space-y-6" action="#" method="POST">
-          <div className="rounded-md shadow-sm space-y-4">
-            {/* Email Field */}
-            <div>
-              <label htmlFor="email" className="sr-only">
-                Email address
-              </label>
+        {/* ---------- Header ---------- */}
+        <header className="text-center mb-8">
+          <h1 className="text-[1.9rem] font-bold tracking-tight text-ink mb-1.5">
+            Welcome back
+          </h1>
+          <p className="text-[0.95rem] text-ink-muted">
+            Sign in to continue to your portfolio
+          </p>
+        </header>
+
+        {/* ---------- Form ---------- */}
+        <form onSubmit={handleSubmit} className="space-y-5">
+          {/* Email */}
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-ink mb-2 tracking-tight"
+            >
+              Email
+            </label>
+            <div className="relative">
+              <HiOutlineEnvelope className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-ink-subtle pointer-events-none" />
               <input
                 id="email"
-                name="email"
                 type="email"
-                autoComplete="email"
                 required
-                className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Email address"
+                autoComplete="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@example.com"
+                className="w-full pl-11 pr-4 py-3.5 text-[0.95rem] bg-surface text-ink placeholder:text-slate-400 rounded-field border-[1.5px] border-edge shadow-input outline-none transition focus:border-brand focus:ring-[3px] focus:ring-brand/10"
               />
             </div>
+          </div>
 
-            {/* Password Field */}
-            <div>
-              <label htmlFor="password" className="sr-only">
-                Password
-              </label>
+          {/* Password */}
+          <div>
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-ink mb-2 tracking-tight"
+            >
+              Password
+            </label>
+            <div className="relative">
+              <HiOutlineLockClosed className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-ink-subtle pointer-events-none" />
               <input
                 id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
+                type={showPassword ? "text" : "password"}
                 required
-                className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Password"
+                autoComplete="current-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                className="w-full pl-11 pr-12 py-3.5 text-[0.95rem] bg-surface text-ink placeholder:text-slate-400 rounded-field border-[1.5px] border-edge shadow-input outline-none transition focus:border-brand focus:ring-[3px] focus:ring-brand/10"
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword((s) => !s)}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-ink-subtle hover:text-ink transition-colors"
+              >
+                {showPassword ? (
+                  <FiEyeOff className="w-5 h-5" />
+                ) : (
+                  <FiEye className="w-5 h-5" />
+                )}
+              </button>
             </div>
           </div>
 
-          {/* Remember Me & Forgot Password */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input
-                id="remember-me"
-                name="remember-me"
-                type="checkbox"
-                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-              />
-              <label
-                htmlFor="remember-me"
-                className="ml-2 block text-sm text-gray-900"
-              >
-                Remember me
-              </label>
-            </div>
-
-            <div className="text-sm">
-              <Link
-                href="/forgot-password"
-                className="font-medium text-indigo-600 hover:text-indigo-500"
-              >
-                Forgot your password?
-              </Link>
-            </div>
-          </div>
-
-          {/* Submit Button */}
-          <div>
-            <button
-              type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200"
+          {/* Forgot password */}
+          <div className="flex justify-end -mt-1">
+            <Link
+              href="/forgot-password"
+              className="text-sm font-medium text-brand hover:text-brand-hover hover:underline transition-colors"
             >
-              Sign in
-            </button>
+              Forgot password?
+            </Link>
           </div>
+
+          {/* Sign In */}
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full inline-flex items-center justify-center gap-2.5 py-3.5 px-6 rounded-field bg-brand text-white text-[0.95rem] font-semibold tracking-tight shadow-brand transition hover:bg-brand-hover hover:-translate-y-px active:translate-y-0 disabled:opacity-70 disabled:cursor-not-allowed"
+          >
+            {isSubmitting ? (
+              <>
+                <span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />
+                Signing in…
+              </>
+            ) : (
+              <>
+                <TbArrowRight className="w-5 h-5" />
+                Sign In
+              </>
+            )}
+          </button>
+
+          {/* Divider */}
+          <div className="flex items-center gap-4 text-[0.75rem] font-medium uppercase tracking-widest text-ink-subtle">
+            <span className="flex-1 h-px bg-edge" />
+            or
+            <span className="flex-1 h-px bg-edge" />
+          </div>
+
+          {/* GitHub */}
+          <button
+            type="button"
+            onClick={() => alert("🔗 GitHub OAuth flow would start here")}
+            className="w-full inline-flex items-center justify-center gap-2.5 py-3.5 px-6 rounded-field bg-slate-100 hover:bg-slate-200/80 text-ink text-[0.95rem] font-semibold tracking-tight border-[1.5px] border-edge shadow-input transition hover:-translate-y-px active:translate-y-0"
+          >
+            <FaGithub className="w-5 h-5" />
+            Continue with GitHub
+          </button>
         </form>
 
-        {/* Divider */}
-        <div className="relative">
-          <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-gray-300" />
-          </div>
-          <div className="relative flex justify-center text-sm">
-            <span className="px-2 bg-gray-50 text-gray-500">
-              Or continue with
-            </span>
-          </div>
-        </div>
-
-        {/* Social Login Buttons */}
-        <div className="grid grid-cols-2 gap-3">
-          <button
-            type="button"
-            className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition-colors duration-200"
-          >
-           
-            <span className="ml-2">Google</span>
-          </button>
-
-          <button
-            type="button"
-            className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition-colors duration-200"
-          >
-           
-            <span className="ml-2">GitHub</span>
-          </button>
-        </div>
-
-        {/* Sign Up Link */}
-        <p className="mt-2 text-center text-sm text-gray-600">
+        {/* ---------- Footer ---------- */}
+        <p className="text-center text-sm text-ink-muted mt-7">
           Don&apos;t have an account?{" "}
           <Link
             href="/signup"
-            className="font-medium text-indigo-600 hover:text-indigo-500"
+            className="font-semibold text-brand hover:text-brand-hover hover:underline transition-colors"
           >
             Sign up
           </Link>
         </p>
       </div>
-    </div>
+    </main>
   );
 }
