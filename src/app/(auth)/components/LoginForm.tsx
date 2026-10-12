@@ -2,7 +2,7 @@
 
 import { useState, FormEvent } from "react";
 import Link from "next/link";
-import { FaGithub, FaCode } from "react-icons/fa6";
+import { FaGithub, FaGoogle } from "react-icons/fa6";
 import { HiOutlineEnvelope, HiOutlineLockClosed } from "react-icons/hi2";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { TbArrowRight } from "react-icons/tb";
@@ -25,12 +25,9 @@ export default function LoginPage() {
 
   return (
     <main className="min-h-screen flex items-center justify-center p-6 bg-page">
-      <div className="w-full max-w-[440px] bg-surface rounded-card border border-edge/60 shadow-soft px-8 pt-10 pb-8 sm:px-8 sm:pb-7">
+      <div className="w-full max-w-110 bg-surface rounded-card border border-edge/60 shadow-soft px-8 pt-10 pb-8 sm:px-8 sm:pb-7">
         {/* ---------- Brand ---------- */}
         <div className="flex items-center justify-center mb-8">
-          <div className="w-11 h-11 rounded-[10px] bg-gradient-to-br from-brand to-blue-800 flex items-center justify-center text-white shadow-brand mr-3">
-            <FaCode className="w-5 h-5" />
-          </div>
           <span className="text-[1.7rem] font-bold tracking-tight text-ink">
             Dev<span className="text-brand">Folio</span>
           </span>
@@ -142,13 +139,23 @@ export default function LoginPage() {
             <span className="flex-1 h-px bg-edge" />
           </div>
 
-          {/* GitHub */}
+          {/* Google */}
           <button
             type="button"
             onClick={() => alert("🔗 GitHub OAuth flow would start here")}
             className="w-full inline-flex items-center justify-center gap-2.5 py-3.5 px-6 rounded-field bg-slate-100 hover:bg-slate-200/80 text-ink text-[0.95rem] font-semibold tracking-tight border-[1.5px] border-edge shadow-input transition hover:-translate-y-px active:translate-y-0"
           >
             <FaGithub className="w-5 h-5" />
+            Continue with Google
+          </button>
+
+          {/* Github */}
+          <button
+            type="button"
+            onClick={() => alert("🔗 GitHub OAuth flow would start here")}
+            className="w-full inline-flex items-center justify-center gap-2.5 py-3.5 px-6 rounded-field bg-slate-100 hover:bg-slate-200/80 text-ink text-[0.95rem] font-semibold tracking-tight border-[1.5px] border-edge shadow-input transition hover:-translate-y-px active:translate-y-0"
+          >
+            <FaGoogle className="w-5 h-5" />
             Continue with GitHub
           </button>
         </form>

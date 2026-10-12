@@ -41,7 +41,7 @@ export default function Navbar() {
         {/* Desktop Action Buttons */}
         <div className="hidden md:flex items-center gap-4">
           <Link
-            href="/auth/login"
+            href="/login"
             className="text-sm font-medium px-4 py-2 hover:opacity-75 transition"
           >
             Sign in
@@ -128,7 +128,7 @@ export default function Navbar() {
 
             <div className="flex flex-col gap-3 pt-4 border-t border-neutral-200">
               <Link
-                href="/auth/login"
+                href="/login"
                 onClick={() => setIsOpen(false)}
                 className="w-full py-3 text-center text-sm font-medium border border-black text-black hover:bg-neutral-50 transition"
               >
