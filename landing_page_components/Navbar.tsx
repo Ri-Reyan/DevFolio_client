@@ -1,10 +1,13 @@
 "use client";
+
 import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { useAuth } from "@/context/AuthContext";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { openModal } = useAuth();
 
   return (
     <header className="border-b border-[#00000014] bg-white/90 backdrop-blur-md sticky top-0 z-50">
@@ -15,7 +18,7 @@ export default function Navbar() {
             href="/"
             className="text-lg sm:text-xl font-bold tracking-tight text-black"
           >
-            DevFolio<span className="text-orange-600">.</span>
+            DevFolio<span className="text-[#EA6F53]">.</span>
           </Link>
         </div>
 
@@ -40,18 +43,18 @@ export default function Navbar() {
 
         {/* Desktop Action Buttons */}
         <div className="hidden md:flex items-center gap-4">
-          <Link
-            href="/login"
+          <button
+            onClick={() => openModal("login")}
             className="text-sm font-medium px-4 py-2 hover:opacity-75 transition"
           >
             Sign in
-          </Link>
-          <Link
-            href="/register"
+          </button>
+          <button
+            onClick={() => openModal("register")}
             className="text-sm font-medium bg-black text-white px-5 py-2.5 rounded-none hover:bg-neutral-800 transition shadow-sm"
           >
             Get Started
-          </Link>
+          </button>
         </div>
 
         {/* Mobile Hamburger Menu Button */}
@@ -127,20 +130,24 @@ export default function Navbar() {
             </nav>
 
             <div className="flex flex-col gap-3 pt-4 border-t border-neutral-200">
-              <Link
-                href="/login"
-                onClick={() => setIsOpen(false)}
-                className="w-full py-3 text-center text-sm font-medium border border-black text-black hover:bg-neutral-50 transition"
+              <button
+                onClick={() => {
+                  openModal("login");
+                  setIsOpen(false);
+                }}
+                className="text-sm font-medium px-4 py-2 hover:opacity-75 transition"
               >
                 Sign in
-              </Link>
-              <Link
-                href="/register"
-                onClick={() => setIsOpen(false)}
-                className="w-full py-3 text-center text-sm font-medium bg-black text-white hover:bg-neutral-800 transition"
+              </button>
+              <button
+                onClick={() => {
+                  openModal("register");
+                  setIsOpen(false);
+                }}
+                className="text-sm font-medium bg-black text-white px-5 py-2.5 rounded-none hover:bg-neutral-800 transition shadow-sm"
               >
                 Get Started
-              </Link>
+              </button>
             </div>
           </motion.div>
         )}
