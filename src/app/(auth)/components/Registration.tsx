@@ -1,5 +1,4 @@
 import { useAuth } from "@/context/AuthContext";
-import React from "react";
 
 const Registration = () => {
   const { setMode } = useAuth();
