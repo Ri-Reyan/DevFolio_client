@@ -3,8 +3,10 @@
 import { useEffect } from "react";
 import { IoClose } from "react-icons/io5";
 import LoginPage from "./Login";
-import { useAuth } from "@/context/AuthContext";
 import Registration from "./Registration";
+import VerifyOtp from "./VerifyOtp";
+import ForgotPassword from "./ForgotPassword";
+import { useAuth } from "@/context/AuthContext";
 
 const AuthModal = () => {
   const { isModalOpen, closeModal, mode } = useAuth();
@@ -25,6 +27,21 @@ const AuthModal = () => {
 
   if (!isModalOpen) return null;
 
+  const getTerminalHeader = () => {
+    switch (mode) {
+      case "login":
+        return "// IDENTITY_AUTH";
+      case "register":
+        return "// CANDIDATE_REGISTER";
+      case "verify-otp":
+        return "// VERIFY_SECURITY_CODE";
+      case "forgot-password":
+        return "// RECOVER_ACCESS";
+      default:
+        return "// AUTH";
+    }
+  };
+
   return (
     <div className="fixed inset-0 z-100 flex flex-col justify-start sm:justify-center items-center p-3 sm:p-4 bg-black/80 backdrop-blur-xs overflow-y-auto">
       {/* Backdrop Area */}
@@ -35,7 +52,7 @@ const AuthModal = () => {
         {/* Top Header Action Bar with Static Close Button */}
         <div className="flex items-center justify-between px-6 pt-5 pb-2 border-b border-neutral-100">
           <span className="text-xs font-mono uppercase tracking-widest text-neutral-400">
-            // {mode === "login" ? "IDENTITY_AUTH" : "CANDIDATE_REGISTER"}
+            {getTerminalHeader()}
           </span>
           <button
             type="button"
@@ -49,7 +66,10 @@ const AuthModal = () => {
 
         {/* Content Area */}
         <div className="p-6 sm:p-8 pt-4">
-          {mode === "login" ? <LoginPage /> : <Registration />}
+          {mode === "login" && <LoginPage />}
+          {mode === "register" && <Registration />}
+          {mode === "verify-otp" && <VerifyOtp />}
+          {mode === "forgot-password" && <ForgotPassword />}
         </div>
       </div>
     </div>
