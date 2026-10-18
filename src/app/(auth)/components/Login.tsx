@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, FormEvent, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { FaGithub } from "react-icons/fa6";
 import { HiOutlineEnvelope, HiOutlineLockClosed } from "react-icons/hi2";
 import { FiEye, FiEyeOff } from "react-icons/fi";
@@ -12,6 +13,7 @@ import { getGitHubAuthUrl } from "@/lib/api";
 export default function LoginPage() {
   const { login, setMode, setPendingEmail } = useAuth();
   const toast = useToast();
+  const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
@@ -40,6 +42,7 @@ export default function LoginPage() {
     try {
       await login(email, password);
       toast.success("Welcome back to DevFolio!");
+      router.push("/dashboard");
     } catch (err: any) {
       // If unverified account (AUTH-09)
       if (

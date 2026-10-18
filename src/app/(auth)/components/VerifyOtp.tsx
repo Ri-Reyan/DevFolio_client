@@ -7,6 +7,7 @@ import {
   KeyboardEvent,
   ClipboardEvent,
 } from "react";
+import { useRouter } from "next/navigation";
 import { TbArrowRight, TbArrowBackUp } from "react-icons/tb";
 import { HiOutlineEnvelope } from "react-icons/hi2";
 import { useAuth } from "@/context/AuthContext";
@@ -19,6 +20,7 @@ const COOLDOWN_SECONDS = 60; // 60 seconds (AUTH-05)
 export default function VerifyOtp() {
   const { pendingEmail, verifyOtp, resendOtp, setMode } = useAuth();
   const toast = useToast();
+  const router = useRouter();
 
   const [digits, setDigits] = useState<string[]>(Array(OTP_LENGTH).fill(""));
   const [isVerifying, setIsVerifying] = useState(false);
@@ -103,6 +105,7 @@ export default function VerifyOtp() {
     try {
       await verifyOtp(pendingEmail, codeToVerify);
       toast.success("Email verified! Welcome to DevFolio.");
+      router.push("/dashboard");
     } catch (err: any) {
       setErrorMessage(err.message || "Invalid or expired verification code.");
       toast.error(err.message || "Verification failed.");
