@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { useToast } from "@/context/ToastContext";
+import { useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useRef } from "react";
 import { useAuth } from "@/context/AuthContext";
+import { useToast } from "@/context/ToastContext";
 
 /**
  * Whitelist mapping of recognized backend OAuth error codes to sanitized user messages.
@@ -28,15 +29,15 @@ const AUTH_ERROR_MESSAGES: Record<string, string> = {
   oauth_failed: "GitHub authentication failed. Please try again.",
 };
 
-export default function OAuthNotificationHandler() {
+function OAuthNotificationConsumer() {
   const toast = useToast();
   const { refreshUser } = useAuth();
+  const searchParams = useSearchParams();
   const hasProcessedRef = useRef(false);
 
   useEffect(() => {
     if (typeof window === "undefined" || hasProcessedRef.current) return;
 
-    const searchParams = new URLSearchParams(window.location.search);
     const githubLink = searchParams.get("github_link");
     const authError = searchParams.get("auth_error");
 
@@ -61,17 +62,19 @@ export default function OAuthNotificationHandler() {
     }
 
     // 3. Remove handled OAuth parameters from the address bar without triggering navigation/reload
-    searchParams.delete("github_link");
-    searchParams.delete("auth_error");
-
-    const remainingQuery = searchParams.toString();
-    const cleanUrl =
-      window.location.pathname +
-      (remainingQuery ? `?${remainingQuery}` : "") +
-      window.location.hash;
-
-    window.history.replaceState(null, "", cleanUrl);
-  }, [toast, refreshUser]);
+    const currentUrl = new URL(window.location.href);
+    currentUrl.searchParams.delete("github_link");
+    currentUrl.searchParams.delete("auth_error");
+    window.history.replaceState(null, "", currentUrl.toString());
+  }, [searchParams, toast, refreshUser]);
 
   return null;
+}
+
+export default function OAuthNotificationHandler() {
+  return (
+    <Suspense fallback={null}>
+      <OAuthNotificationConsumer />
+    </Suspense>
+  );
 }

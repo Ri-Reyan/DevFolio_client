@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Suspense } from "react";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
 import { ToastProvider } from "@/context/ToastContext";
@@ -31,8 +32,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col">
         <ToastProvider>
           <AuthProvider>
-            <AuthModal />
-            <OAuthNotificationHandler />
+            <Suspense fallback={null}>
+              <AuthModal />
+            </Suspense>
+            <Suspense fallback={null}>
+              <OAuthNotificationHandler />
+            </Suspense>
             {children}
           </AuthProvider>
         </ToastProvider>

@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 import { getServerSession } from "@/lib/server-auth";
 import FAQChess from "../../landing_page_components/FAQChess";
 import Footer from "../../landing_page_components/Footer";
@@ -10,7 +11,7 @@ import ProblemSolution from "../../landing_page_components/ProblemSolution";
 import SocialProof from "../../landing_page_components/SocialProof";
 import ClientAuthRedirect from "./components/ClientAuthRedirect";
 
-export default async function LandingPage() {
+async function AuthRedirectCheck() {
   const session = await getServerSession();
 
   // Rule B: Authenticated visitor visiting / is redirected to /dashboard without rendering landing page
@@ -18,10 +19,18 @@ export default async function LandingPage() {
     redirect("/dashboard");
   }
 
-  // Rule A: Unauthenticated visitor visiting / renders the landing page UI
+  return null;
+}
+
+export default function LandingPage() {
   return (
     <div className="min-h-screen bg-white text-[#231f20] font-sans antialiased selection:bg-black selection:text-white">
-      <ClientAuthRedirect />
+      <Suspense fallback={null}>
+        <AuthRedirectCheck />
+      </Suspense>
+      <Suspense fallback={null}>
+        <ClientAuthRedirect />
+      </Suspense>
       <Navbar />
       <Hero />
       <SocialProof />

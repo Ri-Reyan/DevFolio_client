@@ -1,11 +1,12 @@
 "use client";
 
-import React, {
+import {
   createContext,
-  useContext,
-  useState,
+  type ReactNode,
   useCallback,
-  ReactNode,
+  useContext,
+  useMemo,
+  useState,
 } from "react";
 import {
   HiCheckCircle,
@@ -51,14 +52,19 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
     [removeToast],
   );
 
-  const toast = {
-    success: (msg: string) => addToast("success", msg),
-    error: (msg: string) => addToast("error", msg),
-    info: (msg: string) => addToast("info", msg),
-  };
+  const toast = useMemo(
+    () => ({
+      success: (msg: string) => addToast("success", msg),
+      error: (msg: string) => addToast("error", msg),
+      info: (msg: string) => addToast("info", msg),
+    }),
+    [addToast],
+  );
+
+  const contextValue = useMemo(() => ({ toast }), [toast]);
 
   return (
-    <ToastContext.Provider value={{ toast }}>
+    <ToastContext.Provider value={contextValue}>
       {children}
 
       {/* Toast Notification Container */}
@@ -91,7 +97,8 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
 
             <div className="flex-1 text-xs font-sans leading-relaxed">
               <span className="font-mono text-[10px] uppercase tracking-wider block text-neutral-400 mb-0.5">
-                // {t.type}
+                {"// "}
+                {t.type}
               </span>
               {t.message}
             </div>

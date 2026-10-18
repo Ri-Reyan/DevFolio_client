@@ -2,11 +2,11 @@
 
 import {
   createContext,
-  PropsWithChildren,
   type ReactNode,
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from "react";
 import { api, setAccessToken } from "@/lib/api";
@@ -91,15 +91,18 @@ export const AuthProvider = ({ children }: AuthContextProviderProps) => {
   const [mode, setMode] = useState<AuthMode>("login");
   const [pendingEmail, setPendingEmail] = useState("");
 
-  const openModal = (targetMode: AuthMode = "login", email = "") => {
-    setMode(targetMode);
-    if (email) setPendingEmail(email);
-    setIsModalOpen(true);
-  };
+  const openModal = useCallback(
+    (targetMode: AuthMode = "login", email = "") => {
+      setMode(targetMode);
+      if (email) setPendingEmail(email);
+      setIsModalOpen(true);
+    },
+    [],
+  );
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setIsModalOpen(false);
-  };
+  }, []);
 
   const refreshUser = useCallback(async (): Promise<User | null> => {
     try {
@@ -211,32 +214,49 @@ export const AuthProvider = ({ children }: AuthContextProviderProps) => {
     [],
   );
 
+  const contextValue = useMemo<AuthContextType>(
+    () => ({
+      user,
+      isAuthenticated: !!user,
+      isLoading,
+      isModalOpen,
+      mode,
+      pendingEmail,
+      openModal,
+      closeModal,
+      setMode,
+      setPendingEmail,
+      register,
+      verifyOtp,
+      resendOtp,
+      login,
+      logout,
+      forgotPassword,
+      resetPassword,
+      setUser,
+      refreshUser,
+    }),
+    [
+      user,
+      isLoading,
+      isModalOpen,
+      mode,
+      pendingEmail,
+      openModal,
+      closeModal,
+      register,
+      verifyOtp,
+      resendOtp,
+      login,
+      logout,
+      forgotPassword,
+      resetPassword,
+      refreshUser,
+    ],
+  );
+
   return (
-    <AuthContext.Provider
-      value={{
-        user,
-        isAuthenticated: !!user,
-        isLoading,
-        isModalOpen,
-        mode,
-        pendingEmail,
-        openModal,
-        closeModal,
-        setMode,
-        setPendingEmail,
-        register,
-        verifyOtp,
-        resendOtp,
-        login,
-        logout,
-        forgotPassword,
-        resetPassword,
-        setUser,
-        refreshUser,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   );
 };
 

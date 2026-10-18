@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 import { getServerSession } from "@/lib/server-auth";
 import LoginCard from "./LoginCard";
 
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
   description: "Sign in to access your developer command center.",
 };
 
-export default async function LoginPage() {
+async function LoginAuthCheck() {
   const session = await getServerSession();
 
   // Rule F: Authenticated visitor visiting /login is redirected to /dashboard
@@ -16,6 +17,16 @@ export default async function LoginPage() {
     redirect("/dashboard");
   }
 
-  return <LoginCard />;
+  return null;
 }
 
+export default function LoginPage() {
+  return (
+    <>
+      <Suspense fallback={null}>
+        <LoginAuthCheck />
+      </Suspense>
+      <LoginCard />
+    </>
+  );
+}

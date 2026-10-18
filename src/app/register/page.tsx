@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 import { getServerSession } from "@/lib/server-auth";
 import RegisterCard from "./RegisterCard";
 
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
   description: "Join DevFolio to prove your code and engineering skills.",
 };
 
-export default async function RegisterPage() {
+async function RegisterAuthCheck() {
   const session = await getServerSession();
 
   // Rule F: Authenticated visitor visiting /register is redirected to /dashboard
@@ -16,6 +17,16 @@ export default async function RegisterPage() {
     redirect("/dashboard");
   }
 
-  return <RegisterCard />;
+  return null;
 }
 
+export default function RegisterPage() {
+  return (
+    <>
+      <Suspense fallback={null}>
+        <RegisterAuthCheck />
+      </Suspense>
+      <RegisterCard />
+    </>
+  );
+}
