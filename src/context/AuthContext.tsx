@@ -2,6 +2,7 @@
 
 import {
   createContext,
+  PropsWithChildren,
   type ReactNode,
   useCallback,
   useContext,
@@ -33,6 +34,10 @@ export interface ProfileCompletion {
   completedSections: ProfileSectionKey[];
   missingSections: ProfileSectionKey[];
   sections: Record<ProfileSectionKey, ProfileSectionStatus>;
+}
+
+interface AuthContextProviderProps {
+  children: ReactNode;
 }
 
 export interface User {
@@ -79,7 +84,7 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
+export const AuthProvider = ({ children }: AuthContextProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
